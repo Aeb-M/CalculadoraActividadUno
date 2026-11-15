@@ -41,13 +41,19 @@ fun AppNavegacion(modifier: Modifier = Modifier) {
     ) {
         composable("formulario") {
             FormularioScreen(
-                onCalcular = { bruto -> navController.navigate("resultado/$bruto") }
+                onCalcular = { bruto, pagas, hijos ->
+                    navController.navigate("resultado/$bruto/$pagas/$hijos")
+                }
             )
         }
-        composable("resultado/{bruto}") { backStackEntry ->
+        composable("resultado/{bruto}/{pagas}/{hijos}") { backStackEntry ->
             val bruto = backStackEntry.arguments?.getString("bruto") ?: "0"
+            val pagas = backStackEntry.arguments?.getString("pagas") ?: "14"
+            val hijos = backStackEntry.arguments?.getString("hijos") ?: "0"
             ResultadoScreen(
                 bruto = bruto,
+                pagas = pagas,
+                hijos = hijos,
                 onVolver = { navController.popBackStack() }
             )
         }
