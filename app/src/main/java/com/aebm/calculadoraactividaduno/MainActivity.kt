@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.aebm.calculadoraactividaduno.ui.theme.CalculadoraActividadUnoTheme
-import com.aebm.calculadoraactividaduno.ui.theme.FormularioScreen
+import com.aebm.calculadoraactividaduno.ui.theme.ResultadoScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CalculadoraActividadUnoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    FormularioScreen(modifier = Modifier.padding(innerPadding))
+                    ResultadoScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
