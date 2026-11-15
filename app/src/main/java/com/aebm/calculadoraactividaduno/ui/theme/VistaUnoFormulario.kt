@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun FormularioScreen(modifier: Modifier = Modifier) {
+fun FormularioScreen(onCalcular: (String) -> Unit, modifier: Modifier = Modifier) {
     var salarioBruto by remember { mutableStateOf("") }
     var numPagas by remember { mutableStateOf("") }
     var edad by remember { mutableStateOf("") }
@@ -31,7 +31,7 @@ fun FormularioScreen(modifier: Modifier = Modifier) {
         OutlinedTextField(value = estadoCivil, onValueChange = { estadoCivil = it }, label = { Text("Estado civil") })
         OutlinedTextField(value = numHijos, onValueChange = { numHijos = it }, label = { Text("Número de hijos") })
 
-        Button(onClick = { }) {
+        Button(onClick = { onCalcular(salarioBruto.ifEmpty { "0" }) }) {
             Text("Calcular")
         }
     }
@@ -40,5 +40,5 @@ fun FormularioScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun FormularioPreview() {
-    FormularioScreen()
+    FormularioScreen(onCalcular = {})
 }

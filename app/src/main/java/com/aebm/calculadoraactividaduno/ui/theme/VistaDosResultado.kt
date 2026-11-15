@@ -8,17 +8,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ResultadoScreen(modifier: Modifier = Modifier) {
+fun ResultadoScreen(bruto: String, onVolver: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text("Salario bruto: 0")
+        Text("Salario bruto: $bruto")
         Text("Salario neto: 0")
         Text("Retención de IRPF: 0")
         Text("Posibles deducciones: 0")
 
-        Button(onClick = { }) {
+        Button(onClick = onVolver) {
             Text("Volver")
         }
     }
@@ -27,5 +27,5 @@ fun ResultadoScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun VistaDosPreview() {
-    ResultadoScreen()
+    ResultadoScreen(bruto = "30000", onVolver = {})
 }

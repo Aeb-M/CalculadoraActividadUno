@@ -7,11 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.aebm.calculadoraactividaduno.ui.theme.CalculadoraActividadUnoTheme
+import com.aebm.calculadoraactividaduno.ui.theme.FormularioScreen
 import com.aebm.calculadoraactividaduno.ui.theme.ResultadoScreen
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +23,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CalculadoraActividadUnoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ResultadoScreen(modifier = Modifier.padding(innerPadding))
+                    AppNavegacion(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -29,17 +31,25 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun AppNavegacion(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CalculadoraActividadUnoTheme {
-        Greeting("Android")
+    NavHost(
+        navController = navController,
+        startDestination = "formulario",
+        modifier = modifier
+    ) {
+        composable("formulario") {
+            FormularioScreen(
+                onCalcular = { bruto -> navController.navigate("resultado/$bruto") }
+            )
+        }
+        composable("resultado/{bruto}") { backStackEntry ->
+            val bruto = backStackEntry.arguments?.getString("bruto") ?: "0"
+            ResultadoScreen(
+                bruto = bruto,
+                onVolver = { navController.popBackStack() }
+            )
+        }
     }
 }
